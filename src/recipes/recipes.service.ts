@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Recipe } from './entity/recipe.entity';
@@ -9,6 +10,7 @@ export class RecipesService {
   constructor(
     @InjectRepository(Recipe)
     private readonly recipesRepository: Repository<Recipe>,
+    private readonly jwtService: JwtService,
   ) {}
 
   async getRecipes() {

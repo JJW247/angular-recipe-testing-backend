@@ -112,8 +112,14 @@ export class UsersService {
     await this.usersRepository.save(user);
 
     const token = this.jwtService.sign({ id: user.id });
+    const decodedToken = this.jwtService.decode(token);
+    const tokenExpirationDate = decodedToken['exp'];
 
-    return { idToken: token, email: user.email };
+    return {
+      idToken: token,
+      email: user.email,
+      expiresIn: tokenExpirationDate.toString(),
+    };
   }
 
   async signIn(authDto: RequestAuthDto): Promise<ResponseAuthDto> {
@@ -141,7 +147,13 @@ export class UsersService {
     }
 
     const token = this.jwtService.sign({ id: user.id });
+    const decodedToken = this.jwtService.decode(token);
+    const tokenExpirationDate = decodedToken['exp'];
 
-    return { idToken: token, email: user.email };
+    return {
+      idToken: token,
+      email: user.email,
+      expiresIn: tokenExpirationDate.toString(),
+    };
   }
 }

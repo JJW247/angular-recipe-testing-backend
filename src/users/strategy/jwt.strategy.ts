@@ -25,10 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
 
     if (!user) {
-      throw new HttpException(
-        '존재하지 않는 유저입니다!',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException('User does not exist!', HttpStatus.BAD_REQUEST);
     }
 
     return user;
